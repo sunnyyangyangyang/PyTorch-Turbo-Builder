@@ -58,7 +58,7 @@ export CUDA_VERSION="12.9"
 export USE_CUDA=1
 export USE_CUDNN=1
 # For NVIDIA Blackwell (RTX 5090). +PTX provides forward compatibility.
-export TORCH_CUDA_ARCH_LIST="12.0"
+export TORCH_CUDA_ARCH_LIST="8.6;8.9;12.0+PTX"
 
 # --- CPU Performance & Backends ---
 # These are still beneficial. oneDNN can use OpenBLAS as its backend for BLAS calls.
