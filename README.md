@@ -137,7 +137,7 @@ Edit `build.sh` and make the following changes:
 ```diff
 --- a/build.sh
 +++ b/build.sh
-@@ -17,11 +17,11 @@
+@@ -17,17 +17,18 @@
  # The exact name of the memory-intensive ninja target.
  # Find this with `ninja -C build -t targets`.
  FLASH_ATTENTION_TARGET_NAME="flash_attention"
@@ -148,15 +148,19 @@ Edit `build.sh` and make the following changes:
  
  # --- Governor Config ---
  CHECK_INTERVAL_FAST_SEC=15
-@@ -30,7 +30,8 @@
+ CHECK_INTERVAL_THROTTLE_SEC=30
  
- MEMORY_DOWNSHIFT_THRESHOLD_GB=47
+-MEMORY_DOWNSHIFT_THRESHOLD_GB=50
++# NOTE: For 32GB systems, this must be set below your total RAM. ~26GB is safe.
++MEMORY_DOWNSHIFT_THRESHOLD_GB=26
  
 -DEFAULT_JOBS_LEVELS=(32 16 8 4 2)
+-# NOTE: Flash Attention job levels are no longer needed here, as it's built separately.
 +# NOTE: Reduce job levels for 32GB RAM systems.
 +DEFAULT_JOBS_LEVELS=(16 8 4 2 1)
- # NOTE: Flash Attention job levels are no longer needed here, as it's built separately.
  JOBS_LEVELS=("${DEFAULT_JOBS_LEVELS[@]}")
+ 
+ THROTTLE_TASK_COUNT=5
 ```
 
 ## Performance Benchmark
