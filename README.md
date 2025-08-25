@@ -62,9 +62,15 @@ Inside the container, install the necessary tools and download all source code.
 # We are now INSIDE the container.
 # The pytorch/manylinux2_28-builder image requires some development tools.
 
-# Install Git and Python development headers (required by setup.py)
-# This example uses Python 3.11. Adjust if you need a different version.
-dnf install -y git python3.11-devel
+# 1. Enable the PowerTools repository, which contains essential developer libraries.
+#    'dnf-plugins-core' provides the 'dnf config-manager' command.
+dnf install -y dnf-plugins-core
+dnf config-manager --set-enabled powertools
+
+# 2. Install the complete C++ toolchain, CMake, Git, Python headers,
+#    and development libraries for OpenBLAS and OpenSSL.
+dnf groupinstall -y "Development Tools"
+dnf install -y git python3.11-devel cmake openblas-devel openssl-devel
 
 # Create a working directory
 mkdir /workspace && cd /workspace
